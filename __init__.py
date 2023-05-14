@@ -115,7 +115,7 @@ class Quotes(Skill):
         for entry in entries:
             if not search_string:
                 output[entry['key']] = entry['value']
-            elif re.match(str(search_string), str(entry['value'])):
+            elif re.search(str(search_string), entry['value'], re.IGNORECASE):
                 output[entry['key']] = entry['value']
         return output    
 
