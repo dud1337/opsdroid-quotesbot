@@ -279,7 +279,7 @@ class Quotes(Skill):
 
         cond = event.emoji in ['📝']
         cond &= isinstance(event.linked_event, Message)
-        if cond and not re.match(str('Q.{3}'), str(event.linked_event.text)):
+        if cond and not re.search(str('Q.{3}'), str(event.linked_event.text)):
             await self.add_quote(event.linked_event.text)
             await event.respond(
                 Reaction(
