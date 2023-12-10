@@ -277,7 +277,7 @@ class Quotes(Skill):
         '''React to a message with 📝to save it as a quote'''
         await self.connect_to_mongodb()
 
-        cond = event.emoji in ['📝']
+        cond = event.emoji in ['📝', '🔖']
         cond &= isinstance(event.linked_event, Message)
         if cond and not re.search(str('Q.{3}'), str(event.linked_event.text)):
             await self.add_quote(event.linked_event.text)
