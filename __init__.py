@@ -287,3 +287,24 @@ class Quotes(Skill):
                     linked_event=event.linked_event
                 )
             )
+
+    @match_regex('^!help quotes')
+    async def help_quotes(self, event):
+        '''
+        Return help string to user
+        '''
+        text = 'Usage:<br>'
+        text += '<b>!q</b> | Show a random quote<br>'
+        text += '<b>!q [quote id]</b> | Show a specific quote<br>'
+        text += '<b>!q modify [quote id] [new quote text]</b> | Modify a quote<br>'
+        text += '<b>!q delete [quote id]</b> | Remove a quote<br>'
+        text += '<b>!q add [new quote text]</b> | Add a new quote<br>'
+        text += '<b>!q search [search text]</b> | Search for a quote<br>'
+        text += '<b>!q count</b> | Get total count of quotes<br>'
+        text += 'React to a message with 📝 or 🔖 to save it as a quote'
+
+        await event.respond(
+            Message(
+                text=text
+            )
+        )
