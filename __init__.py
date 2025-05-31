@@ -102,6 +102,8 @@ class Quotes(Skill):
         async with self.opsdroid.get_database("mongo").memory_in_collection(self.collection_name) as db:
             try:
                 data = await db.get(quote_id)
+                if data is None:
+                    return "Quote ID not found"
             except:
                 data = "Quote ID not found"
         return data
