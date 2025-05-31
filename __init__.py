@@ -100,13 +100,8 @@ class Quotes(Skill):
 
     async def get_quote(self, quote_id):
         async with self.opsdroid.get_database("mongo").memory_in_collection(self.collection_name) as db:
-            try:
-                data = await db.get(quote_id)
-                if data is None:
-                    return "Quote ID not found"
-            except:
-                data = "Quote ID not found"
-        return data
+            data = await db.get(quote_id)
+            return data or "Quote ID not found"
 
     async def get_quote_list(self, search_string=None):
         '''get all quotes as a dict'''
