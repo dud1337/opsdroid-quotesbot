@@ -26,6 +26,7 @@ class Quotes(Skill):
         self.bot_was_last_message = False
         self.collection_name = self.config.get('quotes_collection')
         self.quotes_room = self.config.get('quotes_room')
+        self.cron_interval = self.config.get('quotes_cron_interval')
 
         self.client = None
         self.db = None
@@ -138,7 +139,7 @@ class Quotes(Skill):
     #       
     #
     ##################################################################
-    @match_crontab('0 0 1/7 * *', timezone="Europe/Zurich")
+    @match_crontab(self.cron_interval, timezone="Europe/Zurich")
     async def rand_quote_to_a_room(self):
         await self.connect_to_mongodb()
         rand_quote = await self.get_rand_quote()
