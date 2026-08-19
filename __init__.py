@@ -32,6 +32,11 @@ class Quotes(Skill):
         self.db = None
         self.collection = None
 
+        match_crontab(
+            self.cron_interval,
+            timezone="Europe/Zurich",
+        )(self.rand_quote_to_a_room.__func__)
+
     async def connect_to_mongodb(self):
         if not self.client:
             connect_string = 'mongodb://'
@@ -139,7 +144,6 @@ class Quotes(Skill):
     #       
     #
     ##################################################################
-    @match_crontab(self.cron_interval, timezone="Europe/Zurich")
     async def rand_quote_to_a_room(self):
         await self.connect_to_mongodb()
         rand_quote = await self.get_rand_quote()
